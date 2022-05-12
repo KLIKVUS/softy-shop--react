@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import $ from 'jquery';
 
 import Card from './partials/Card';
 import SpecialCard from './partials/SpecialCard';
@@ -15,6 +16,15 @@ function Main() {
         {titleCard: "Набор Золотая лагуна сноведений", costCard: "1100 $", imageSrc: "./img/cards/card3-image.jpg"}
     ]
 
+    useEffect(() => {
+        $("a.scroll-to").on("click", function(){
+            var anchor = $(this).attr('href').match("#[a-zA-Z-]+")[0];
+            $('html, body').stop().animate({
+                scrollTop: $(anchor).offset().top
+            }, 800)
+        })
+    })
+
     return (
         <main className="main flex-helper">
             <div className="main-header">
@@ -23,7 +33,7 @@ function Main() {
                 </section>
                 <section className="main-header__title-wrapper">
                     <h1 className="main-header__title">Самая уютная пижама на свете</h1>
-                    <NavLink to={"#learn-more-anchor"} className="main-header__link">Узнать больше</NavLink>
+                    <NavLink to="#learn-more-anchor" className="main-header__link scroll-to">Узнать больше</NavLink>
                 </section>
             </div>
             <div className="main-body" id="learn-more-anchor">

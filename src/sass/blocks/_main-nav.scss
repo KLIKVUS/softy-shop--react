@@ -32,10 +32,15 @@
 }
 
 @media (min-width: $width-tb) {
+    .main-nav {
+        margin: auto;
+        // margin-bottom: 0;
+    }
     .main-nav__list {
         display: flex;
     }
     .main-nav__item {
+        min-width: 100px;
         border: none;
         margin: 0 10px;
         &:last-child {
