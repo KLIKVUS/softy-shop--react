@@ -1,29 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import $ from 'jquery';
 
 import Card from './partials/Card';
 import SpecialCard from './partials/SpecialCard';
 import SubBlock from './partials/SubBlock';
+import { MainPageCardsContext } from '../../context/CardsContext';
 
 
-function Main() {
-    let cards = [
-        {titleCard: "Жёлтый сон", costCard: "50 $", imageSrc: "./img/cards/card1-image.jpg"},
-        {titleCard: "Пижама Кинг-Конг", costCard: "120 $", imageSrc: "./img/cards/card2-image.jpg"}
-    ]
-    let specialCards = [
-        {titleCard: "Набор Золотая лагуна сноведений", costCard: "1100 $", imageSrc: "./img/cards/card3-image.jpg"}
-    ]
+function Main(props) {
+    const {createLinksWithCoolScroll, coolScroll} = props;
+    useEffect(() => createLinksWithCoolScroll() );
 
-    useEffect(() => {
-        $("a.scroll-to").on("click", function(){
-            var anchor = $(this).attr('href').match("#[a-zA-Z-]+")[0];
-            $('html, body').stop().animate({
-                scrollTop: $(anchor).offset().top
-            }, 800)
-        })
-    })
+    const cards = useContext(MainPageCardsContext);
 
     return (
         <main className="main flex-helper">
@@ -40,12 +28,13 @@ function Main() {
                 <section className="main-body__cards cards">
                     <h1 className="cards__title"><span>Популярные</span><span className="cards__title-word-right">пижамы</span></h1>
                     <div className="cards__items">
-                        {cards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
-                        {specialCards.map((card, ind) => <SpecialCard key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
-                        {cards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
+                        {cards.defaultCards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
+                        {cards.specialCards.map((card, ind) => <SpecialCard key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
                     </div>
 
-                    <div className="cards__link-wrapper flex-helper"><NavLink to={"/catalog"} className="cards__link">Смотреть все</NavLink></div>
+                    <div className="cards__link-wrapper flex-helper">
+                        <NavLink to="/catalog" className="cards__link" onClick={() => coolScroll()}>Смотреть все</NavLink>
+                    </div>
                 </section>
 
                 <SubBlock />

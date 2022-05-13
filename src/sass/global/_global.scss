@@ -8,6 +8,12 @@ body {
     background-color: $mainColor;
 }
 
+@media (min-width: $width-pc) {
+    body.clip {
+        overflow: hidden;
+    }
+}
+
 // Оптимизация ссылок, input, button и др
 a,
 input,

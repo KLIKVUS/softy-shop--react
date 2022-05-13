@@ -17,6 +17,9 @@
 .main-nav__link {
     color: $black;
     font-size: $text-mb;
+    cursor: pointer;
+    border: unset;
+    background-color: unset;
 }
 
 .main-nav__list {

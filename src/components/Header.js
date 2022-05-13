@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 
 function Header(props) {
     const {classNameForNav, searchClassName} = props;
+    const [headerToggle, setHeaderToggle] = useState(true);
+
+    const openPopup = () => {
+        document.body.classList.toggle("clip");
+        
+    }
 
     return (
         <header className={`header ${classNameForNav || ''}`}>
@@ -14,23 +20,23 @@ function Header(props) {
                         <img src="/img/logo.svg" alt="Логотип «Softy Shop»" />
                     </picture>
                 </NavLink>
-                <button className="header__btn header__btn--close" type="button">
+                <button className={`header__btn ${headerToggle ? "header__btn--close" : "header__btn--opened"}`} onClick={() => {setHeaderToggle(!headerToggle)}} type="button">
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
             </div>
-            <nav className="main-nav">
+            <nav className={`main-nav ${headerToggle ? "main-nav--hidden" : ""}`}>
                 <ul className="main-nav__list">
                     <li className="main-nav__item">
                         <NavLink to="/auth/login" className="main-nav__link">Войти</NavLink>
                     </li>
                     <li className="main-nav__item">
-                        <NavLink to="/favorites" className="main-nav__link">Избранное</NavLink>
+                        <button className="main-nav__link" onClick={() => openPopup()}>Избранное</button>
                     </li>
                     <li className="main-nav__item">
-                        <NavLink to="/basket" className="main-nav__link">Корзина</NavLink>
+                        <button className="main-nav__link">Корзина</button>
                     </li>
                 </ul>
             </nav>
