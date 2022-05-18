@@ -1,20 +1,16 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-// import { countReducer } from "./countReducer";
-// import { emplReducer } from "./emplReducer";
-// import { composeWithDevTools } from "redux-devtools-extension";
-// import thunk from "redux-thunk";
-
+import { createStore, combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 
+import { appConfigReducer } from "./appConfigReducer";
+
 
 const rootReducers = combineReducers({
-    appConfig: appConfig
+    appConfig: appConfigReducer
 });
 
-const persistConfig = { key: "root", storage }
+const persistConfig = { key: "root", storage, blacklist: ["appConfig"] }
 const persistedReducer = persistReducer(persistConfig, rootReducers)
 
-// export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
 export const store = createStore(persistedReducer);
 export const persistor = persistStore(store);

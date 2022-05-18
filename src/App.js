@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
 import $ from 'jquery';
+
+import "./sass/style.scss";
 
 import Header from './components/Header';
 import Main from './components/Main/Main';
 import MainCatalog from './components/Main/MainCatalog';
 import Footer from './components/Footer';
-import NotFound from './components/NotFound';
-
-import "./sass/style.scss";
 import Login from './components/Auth/Login';
 import Registration from './components/Auth/Registration';
+import Popup from './components/Popup/Popup';
+import Basket from './components/Popup/Basket';
+import NotFound from './components/NotFound';
+import { popupBasketToggleAction, popupFavoutitesToggleAction } from './store/appConfigReducer';
 
 
 function App() {
-  const [popupToogle, setPopupToogle] = useState(false);
+  const appConfig = useSelector((state) => state.appConfig);
 
   const coolScroll = (anchor="#root", marginTop=0, speed=400) => {
     $('html, body').stop().animate({
@@ -29,19 +33,29 @@ function App() {
     })
   }
 
+  const dispatch = useDispatch();
+  const openPopup = (popupType) => {
+    document.body.classList.toggle("clip");
+    switch (popupType) {
+        case ("basket"): return dispatch(popupBasketToggleAction());
+        case ("favourites"): return dispatch(popupFavoutitesToggleAction());
+        default: return dispatch(popupBasketToggleAction());
+    }
+  }
+
   return (
     <Router>
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Navigate to="/main" />} />
 
-        <Route path="/main" element={[
-          <Header key={1} />,
+        <Route exact path="/main" element={[
+          <Header key={1} headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} />,
           <Main key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} />,
           <Footer key={3} />
         ]} />
         <Route path="/catalog" element={[
-          <Header key={1} classNameForNav="header--catalog" searchClassName="header__search--catalog" />,
+          <Header key={1} classNameForNav="header--catalog" searchClassName="header__search--catalog" headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} />,
           <MainCatalog key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} />, <Footer key={3} />
         ]} />
 
@@ -51,7 +65,8 @@ function App() {
         </Route>
       </Routes>
 
-      {}
+      {/* {appConfig.popup.favouritesOpen && <Favorites />} */}
+      {appConfig.popup.basketOpen && <Popup content={<Basket />} popupType={"basket"} openPopup={openPopup} />}
     </Router>
   );
 }
