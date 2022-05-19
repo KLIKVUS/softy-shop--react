@@ -1,15 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import Card from './partials/Card';
-import { MainPageCardsContext } from '../../context/CardsContext';
+import SpecialCard from './partials/SpecialCard';
 
 
 function MainCatalog(props) {
-    const {createLinksWithCoolScroll, defaultCards} = props;
+    const {createLinksWithCoolScroll, cards} = props;
     useEffect(() => createLinksWithCoolScroll());
-
-    const cards = useContext(MainPageCardsContext);
 
     return (
         <main className="main flex-helper">
@@ -39,7 +37,8 @@ function MainCatalog(props) {
                 <section className="cards">
                     <h1 className="cards__title">Популярные пижамы</h1>
                     <div className="cards__items">
-                    {defaultCards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
+                    {cards.defaultCards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
+                    {cards.specialCards && cards.specialCards.map((card, ind) => <SpecialCard key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
                     </div>
                 </section>
             </section>

@@ -7,7 +7,7 @@ import { headerToggleAction } from '../store/appConfigReducer';
 
 
 function Header(props) {
-    const {classNameForNav, searchClassName, headerToggleInfo, openPopup, setdefaultCards} = props;
+    const {classNameForNav, searchClassName, headerToggleInfo, openPopup, setCards} = props;
 
     const cards = useContext(MainPageCardsContext);
     
@@ -19,15 +19,17 @@ function Header(props) {
         if(!searchText) {
             return ListOfCards;
         }
-        console.log(searchText)
-        return ListOfCards.filter(({ titleCard }) => titleCard.toLowerCase().includes(searchText.toLowerCase())
-        );
+
+        const filteredDefaultCards = ListOfCards.defaultCards.filter(({ titleCard }) => titleCard.toLowerCase().includes(searchText.toLowerCase()));
+        const filteredSpecialCardsCards = ListOfCards.specialCards.filter(({ titleCard }) => titleCard.toLowerCase().includes(searchText.toLowerCase()));
+        return {...ListOfCards, defaultCards: filteredDefaultCards, specialCards: filteredSpecialCardsCards};
     }
 
     useEffect(() => {
         const Debounce = setTimeout(() => {
             const filteredCards = filterCards(searchTerm, cards);
-            setdefaultCards(filteredCards);
+            console.log(filteredCards);
+            setCards(filteredCards);
         }, 300);
         return () => clearTimeout(Debounce);
     },[searchTerm])
@@ -63,7 +65,7 @@ function Header(props) {
             </nav>
             <form className="header__form">
                 <label htmlFor="search" className="header__label visually-hidden">Поиск</label>
-                <input className={`header__search ${searchClassName || ''}`} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} type="text" name="search" id="search" placeholder="Поиск..." />
+                <input className={`header__search ${searchClassName || ''}`} value={searchTerm} onChange={(e) => {e.preventDefault(); setSearchTerm(e.target.value);}} type="text" name="search" id="search" placeholder="Поиск..." />
             </form>
         </header>
     );

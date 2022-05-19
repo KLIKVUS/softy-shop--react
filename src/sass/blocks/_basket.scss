@@ -1,6 +1,7 @@
 .basket {
     width: 750px;
-    height: 423px;
+    min-height: 300px;
+    margin: auto;
     background: #FFFFFF;
     box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
     border-radius: 6px;
@@ -10,7 +11,6 @@
 
 
     &__title {
-        height: 60px;
         border-bottom: 1px solid #E1E8EE;
         padding: 20px 30px;
         color: #5E6977;
@@ -18,10 +18,17 @@
         font-weight: 400;
     }
     
+    &__items {
+        margin: auto;
+    }
     &__item {
         padding: 20px 30px;
         height: 120px;
         display: flex;
+
+        &--deleted {
+            margin: 100px;
+        }
     }
     
     &__item:nth-child(3) {
@@ -30,30 +37,29 @@
     }
 
     &__buttons {
-        position: relative;
-        padding-top: 30px;
-        margin-right: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-right: 30px;
     }
     &__delete-btn,
     &__like-btn {
         display: inline-block;
-        Cursor: pointer;
+        cursor: pointer;
+        fill: #86939E;
     }
     &__delete-btn {
-        width: 18px;
-        height: 17px;
-        // background: url("delete-icn.svg") no-repeat center;
+        width: 35px;
+        height: 35px;
+        margin-bottom: 20px;
     }
-    
     &__like-btn {
-        position: absolute;
-        top: 9px;
-        left: 15px;
-        // background: url('twitter-heart.png');
-        width: 60px;
-        height: 60px;
-        background-size: 2900%;
-        background-repeat: no-repeat;
+        width: 25px;
+        height: 25px;
+        &:hover {
+            fill: #dc143c;
+        }
     }
 
     &__is-active {
@@ -71,11 +77,15 @@
     }
 
     &__image {
-        margin-right: 50px;
+        height: 120px;
+        width: 120px;
+        margin: auto 50px auto 0;
+        object-fit: cover;
     }
     
     &__description {
-        padding-top: 10px;
+        // padding-top: 10px;
+        margin: auto 0;
         margin-right: 60px;
         width: 115px;
     }
@@ -87,17 +97,18 @@
         font-weight: 400;
     }
     
-    &__description span:first-child {
-        margin-bottom: 5px;
-    }
-    &__description span:last-child {
-        font-weight: 300;
-        margin-top: 8px;
-        color: #86939E;
-    }
+    // &__description span:first-child {
+    //     margin-bottom: 5px;
+    // }
+    // &__description span:last-child {
+    //     font-weight: 300;
+    //     margin-top: 8px;
+    //     color: #86939E;
+    // }
 
     &__quantity {
-        padding-top: 20px;
+        // padding-top: 20px;
+        margin: auto 0;
         margin-right: 60px;
     }
     &__quantity input {
@@ -132,7 +143,8 @@
 
     &__total-price {
         width: 83px;
-        padding-top: 27px;
+        // padding-top: 27px;
+        margin: auto 0;
         text-align: center;
         font-size: 16px;
         color: #43484D;
@@ -144,18 +156,12 @@
 @media (max-width: 800px) {
     .basket {
         width: 100%;
-        height: auto;
-        overflow: hidden;
     
         &__item {
             height: auto;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
-        &__image img {
-            width: 50%;
-        }
-        &__image,
         &__quantity,
         &__description {
             width: 100%;
@@ -163,7 +169,16 @@
             margin: 6px 0;
         }
         &__buttons {
+            margin-right: 0;
+            flex-direction: row;
+        }
+        &__delete-btn {
+            margin-bottom: 0;
             margin-right: 20px;
+        }
+        &__image {
+            margin-top: 10px;
+            margin-right: 0;
         }
     }
 }

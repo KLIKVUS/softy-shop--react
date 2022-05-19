@@ -19,7 +19,7 @@ import { popupBasketToggleAction, popupFavoutitesToggleAction } from './store/ap
 
 function App() {
   const appConfig = useSelector((state) => state.appConfig);
-  const [defaultCards, setdefaultCards] = useState(useContext(MainPageCardsContext));
+  const [cards, setCards] = useState(useContext(MainPageCardsContext));
 
   const coolScroll = (anchor="#root", marginTop=0, speed=400) => {
     $('html, body').stop().animate({
@@ -51,13 +51,13 @@ function App() {
         <Route path="/" element={<Navigate to="/main" />} />
 
         <Route exact path="/main" element={[
-          <Header key={1} headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setdefaultCards={setdefaultCards} />,
-          <Main key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} defaultCards={defaultCards}/>,
+          <Header key={1} headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setCards={setCards} />,
+          <Main key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} cards={cards}/>,
           <Footer key={3} />
         ]} />
         <Route path="/catalog" element={[
-          <Header key={1} classNameForNav="header--catalog" searchClassName="header__search--catalog" headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setdefaultCards={setdefaultCards} />,
-          <MainCatalog key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} defaultCards={defaultCards} />, <Footer key={3}  />
+          <Header key={1} classNameForNav="header--catalog" searchClassName="header__search--catalog" headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setCards={setCards} />,
+          <MainCatalog key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} cards={cards} />, <Footer key={3}  />
         ]} />
 
         <Route path="/auth">
