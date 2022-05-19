@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch} from "react-redux";
+import {MainPageCardsContext}  from '../context/CardsContext';
 
 import { headerToggleAction } from '../store/appConfigReducer';
 
 
 function Header(props) {
-    const {classNameForNav, searchClassName, headerToggleInfo, openPopup} = props;
+    const {classNameForNav, searchClassName, headerToggleInfo, openPopup, setdefaultCards} = props;
+
+    const cards = useContext(MainPageCardsContext);
+    
+    const [searchTerm, setSearchTerm] = useState('');
 
     const dispatch = useDispatch();
+
+    const filterCards = (searchText, ListOfCards) => {
+        if(!searchText) {
+            return ListOfCards;
+        }
+        console.log(searchText)
+        return ListOfCards.filter(({ titleCard }) => titleCard.toLowerCase().includes(searchText.toLowerCase())
+        );
+    }
+
+    useEffect(() => {
+        const Debounce = setTimeout(() => {
+            const filteredCards = filterCards(searchTerm, cards);
+            setdefaultCards(filteredCards);
+        }, 300);
+        return () => clearTimeout(Debounce);
+    },[searchTerm])
 
     return (
         <header className={`header ${classNameForNav || ''}`}>
@@ -41,7 +63,7 @@ function Header(props) {
             </nav>
             <form className="header__form">
                 <label htmlFor="search" className="header__label visually-hidden">Поиск</label>
-                <input className={`header__search ${searchClassName || ''}`} type="search" name="search" id="search" placeholder="Поиск..." />
+                <input className={`header__search ${searchClassName || ''}`} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} type="text" name="search" id="search" placeholder="Поиск..." />
             </form>
         </header>
     );

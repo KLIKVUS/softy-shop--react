@@ -6,7 +6,7 @@ import { MainPageCardsContext } from '../../context/CardsContext';
 
 
 function MainCatalog(props) {
-    const {createLinksWithCoolScroll} = props;
+    const {createLinksWithCoolScroll, defaultCards} = props;
     useEffect(() => createLinksWithCoolScroll());
 
     const cards = useContext(MainPageCardsContext);
@@ -39,8 +39,7 @@ function MainCatalog(props) {
                 <section className="cards">
                     <h1 className="cards__title">Популярные пижамы</h1>
                     <div className="cards__items">
-                        {cards.defaultCards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
-                        {cards.defaultCards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
+                    {defaultCards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
                     </div>
                 </section>
             </section>
