@@ -110,17 +110,18 @@
 @media (min-width: $width-tb) {
     .header {
         width: 50%;
-        box-sizing: border-box;
-        padding-top: 25px;
-        margin-left: auto;
+        margin: 0 auto;
+        margin-right: 0;
         display: flex;
         justify-content: flex-end;
-        flex-direction: column;
     }
     .header--catalog {
         width: 100%;
     }
     .header__wrapper {
+        display: none;
+    }
+    .header__form {
         display: none;
     }
 }

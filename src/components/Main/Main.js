@@ -8,7 +8,8 @@ import { MainPageCardsContext } from '../../context/CardsContext';
 
 
 function Main(props) {
-    const {createLinksWithCoolScroll, coolScroll} = props;
+    const {createLinksWithCoolScroll, coolScroll,defaultCards} = props;
+    console.log(defaultCards)
     useEffect(() => createLinksWithCoolScroll() );
 
     const cards = useContext(MainPageCardsContext);
@@ -28,8 +29,8 @@ function Main(props) {
                 <section className="main-body__cards cards">
                     <h1 className="cards__title"><span>Популярные</span><span className="cards__title-word-right">пижамы</span></h1>
                     <div className="cards__items">
-                        {cards.defaultCards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
-                        {cards.specialCards.map((card, ind) => <SpecialCard key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
+                        {defaultCards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
+                        {/* {defaultCards.specialCards.map((card, ind) => <SpecialCard key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)} */}
                     </div>
 
                     <div className="cards__link-wrapper flex-helper">

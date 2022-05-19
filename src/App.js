@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useContext,useState} from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import $ from 'jquery';
-
+import {MainPageCardsContext}  from './context/CardsContext';
 import "./sass/style.scss";
 
 import Header from './components/Header';
@@ -19,6 +19,7 @@ import { popupBasketToggleAction, popupFavoutitesToggleAction } from './store/ap
 
 function App() {
   const appConfig = useSelector((state) => state.appConfig);
+  const [defaultCards, setdefaultCards] = useState(useContext(MainPageCardsContext));
 
   const coolScroll = (anchor="#root", marginTop=0, speed=400) => {
     $('html, body').stop().animate({
@@ -50,13 +51,13 @@ function App() {
         <Route path="/" element={<Navigate to="/main" />} />
 
         <Route exact path="/main" element={[
-          <Header key={1} headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} />,
-          <Main key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} />,
+          <Header key={1} headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setdefaultCards={setdefaultCards} />,
+          <Main key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} defaultCards={defaultCards}/>,
           <Footer key={3} />
         ]} />
         <Route path="/catalog" element={[
-          <Header key={1} classNameForNav="header--catalog" searchClassName="header__search--catalog" headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} />,
-          <MainCatalog key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} />, <Footer key={3} />
+          <Header key={1} classNameForNav="header--catalog" searchClassName="header__search--catalog" headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setdefaultCards={setdefaultCards} />,
+          <MainCatalog key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} defaultCards={defaultCards} />, <Footer key={3}  />
         ]} />
 
         <Route path="/auth">
