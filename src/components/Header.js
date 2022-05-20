@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch} from "react-redux";
-import {MainPageCardsContext}  from '../context/CardsContext';
 
+import { MainPageCardsContext }  from '../context/CardsContext';
 import { headerToggleAction } from '../store/appConfigReducer';
 
 
 function Header(props) {
-    const {classNameForNav, searchClassName, headerToggleInfo, openPopup, setCards} = props;
+    const {classNameForNav, searchClassName, headerToggleInfo, openPopup, setCards, coolScroll} = props;
 
     const cards = useContext(MainPageCardsContext);
     
@@ -28,7 +28,6 @@ function Header(props) {
     useEffect(() => {
         const Debounce = setTimeout(() => {
             const filteredCards = filterCards(searchTerm, cards);
-            console.log(filteredCards);
             setCards(filteredCards);
         }, 300);
         return () => clearTimeout(Debounce);
@@ -56,16 +55,16 @@ function Header(props) {
                         <NavLink to="/auth/login" className="main-nav__link">Войти</NavLink>
                     </li>
                     <li className="main-nav__item">
-                        <button className="main-nav__link" onClick={() => openPopup("favourites")}>Избранное</button>
+                        <button className="main-nav__link" /* onClick={() => openPopup("favourites")} */>Избранное</button>
                     </li>
                     <li className="main-nav__item">
                         <button className="main-nav__link" onClick={() => openPopup("basket")}>Корзина</button>
                     </li>
                 </ul>
             </nav>
-            <form className="header__form">
+            <form className="header__form" onSubmit={(e) => {e.preventDefault(); coolScroll("#learn-more-anchor")}}>
                 <label htmlFor="search" className="header__label visually-hidden">Поиск</label>
-                <input className={`header__search ${searchClassName || ''}`} value={searchTerm} onChange={(e) => {e.preventDefault(); setSearchTerm(e.target.value);}} type="text" name="search" id="search" placeholder="Поиск..." />
+                <input className={`header__search ${searchClassName || ''}`} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} type="text" name="search" id="search" placeholder="Поиск..." />
             </form>
         </header>
     );

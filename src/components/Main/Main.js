@@ -25,8 +25,8 @@ function Main(props) {
                 <section className="main-body__cards cards">
                     <h1 className="cards__title"><span>Популярные</span><span className="cards__title-word-right">пижамы</span></h1>
                     <div className="cards__items">
-                        {cards.defaultCards && cards.defaultCards.map((card, ind) => <Card key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
-                        {cards.specialCards && cards.specialCards.map((card, ind) => <SpecialCard key={ind} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
+                        {cards.defaultCards && cards.defaultCards.map((card, ind) => <Card key={ind} uniqueKey={card.uniqueKey} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
+                        {cards.specialCards && cards.specialCards.map((card, ind) => <SpecialCard key={ind} uniqueKey={card.uniqueKey} titleCard={card.titleCard} costCard={card.costCard} imageSrc={card.imageSrc} />)}
                     </div>
 
                     <div className="cards__link-wrapper flex-helper">

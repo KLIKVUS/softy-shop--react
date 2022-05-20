@@ -2,7 +2,7 @@ import React, {useContext,useState} from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import $ from 'jquery';
-import {MainPageCardsContext}  from './context/CardsContext';
+
 import "./sass/style.scss";
 
 import Header from './components/Header';
@@ -14,7 +14,9 @@ import Registration from './components/Auth/Registration';
 import Popup from './components/Popup/Popup';
 import Basket from './components/Popup/Basket';
 import NotFound from './components/NotFound';
+
 import { popupBasketToggleAction, popupFavoutitesToggleAction } from './store/appConfigReducer';
+import { MainPageCardsContext }  from './context/CardsContext';
 
 
 function App() {
@@ -51,12 +53,12 @@ function App() {
         <Route path="/" element={<Navigate to="/main" />} />
 
         <Route exact path="/main" element={[
-          <Header key={1} headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setCards={setCards} />,
+          <Header key={1} headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setCards={setCards} coolScroll={coolScroll} />,
           <Main key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} cards={cards}/>,
           <Footer key={3} />
         ]} />
         <Route path="/catalog" element={[
-          <Header key={1} classNameForNav="header--catalog" searchClassName="header__search--catalog" headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setCards={setCards} />,
+          <Header key={1} classNameForNav="header--catalog" searchClassName="header__search--catalog" headerToggleInfo={appConfig.headerToggle} openPopup={openPopup} setCards={setCards} coolScroll={coolScroll} />,
           <MainCatalog key={2} createLinksWithCoolScroll={createLinksWithCoolScroll} coolScroll={coolScroll} cards={cards} />, <Footer key={3}  />
         ]} />
 

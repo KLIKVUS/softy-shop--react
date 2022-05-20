@@ -3,10 +3,12 @@ import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 
 import { appConfigReducer } from "./appConfigReducer";
+import { basket } from "./basketReducer";
 
 
 const rootReducers = combineReducers({
-    appConfig: appConfigReducer
+    appConfig: appConfigReducer,
+    basket: basket
 });
 
 const persistConfig = { key: "root", storage, blacklist: ["appConfig"] }
