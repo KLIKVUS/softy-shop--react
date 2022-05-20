@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { dellItemInBasketleAction } from '../../store/basketReducer';
+import { decrItemCountInBasketleAction, dellItemInBasketleAction, incrItemCountInBasketleAction } from '../../store/basketReducer';
 
 
 function Item(props) {
@@ -26,9 +26,9 @@ function Item(props) {
             </div>
     
             <div className="basket__quantity">
-                <button className="basket__plus-btn" type="button" name="button">+</button>
+                <button className="basket__plus-btn" type="button" name="button" onClick={() => dispatch(incrItemCountInBasketleAction(uniqueKey))}>+</button>
                 <input type="text" name="name" defaultValue={itemCount} />
-                <button className="basket__minus-btn" type="button" name="button">-</button>
+                <button className="basket__minus-btn" type="button" name="button" onClick={() => dispatch(decrItemCountInBasketleAction(uniqueKey))}>-</button>
             </div>
     
             <div className="basket__total-price">{itemCost}</div>
